@@ -1,0 +1,17 @@
+======================================================================
+RAPPORT D'INCIDENTS - MINI SIEM
+Genere le : 21/07/2026 a 03:18:32
+Nombre d'alertes : 2
+======================================================================
+
+[1] CRITIQUE - Connexion reussie apres brute force
+    Source        : 203.0.113.66
+    Technique     : T1078 (Valid Accounts)
+    Tactique      : Initial Access / Persistence (TA0001, TA0003)
+    Description   : Utilisation d'un compte legitime compromis pour acceder au systeme.
+
+[2] MOYENNE - Brute Force SSH
+    Source        : 203.0.113.66
+    Technique     : T1110.001 (Brute Force: Password Guessing)
+    Tactique      : Credential Access (TA0006)
+    Description   : Tentatives repetees de deviner un mot de passe valide.
