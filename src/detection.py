@@ -38,8 +38,21 @@ def detecter_brute_force(evenements):
                     "debut": min(meilleur),
                     "fin": max(meilleur),
                 })
-               
 
+
+    return alertes
+def detecter_succes_apres_echecs(evenements, alertes_bf):
+    alertes = []
+    ips_suspectes = {a["ip"] for a in alertes_bf}
+
+    for e in evenements:
+        if e["succes"] and e["ip"] in ips_suspectes:
+            alertes.append({
+                "type": "Connexion reussie apres brute force",
+                "ip": e["ip"],
+                "utilisateur": e["utilisateur"],
+                "date": convertir_date(e["date"]),
+            })
     return alertes
 
 if __name__ == "__main__":
@@ -49,6 +62,8 @@ if __name__ == "__main__":
 
     evenements = analyser_fichier("logs/auth.log")
     alertes = detecter_brute_force(evenements)
+    alertes += detecter_succes_apres_echecs(evenements, alertes)
+
     print(f"{len(alertes)} alerte(s) detectee(s)")
     for a in alertes:
         print(a)
