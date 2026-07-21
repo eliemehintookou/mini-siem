@@ -59,10 +59,12 @@ if __name__ == "__main__":
     import sys
     sys.path.append("src")
     from parser import analyser_fichier
+    from mitre import enrichir
 
     evenements = analyser_fichier("logs/auth.log")
     alertes = detecter_brute_force(evenements)
     alertes += detecter_succes_apres_echecs(evenements, alertes)
+    alertes = [enrichir(a) for a in alertes]
 
     print(f"{len(alertes)} alerte(s) detectee(s)")
     for a in alertes:
