@@ -47,6 +47,8 @@ mini-siem/
 ├── logs/                   # Input logs (git-ignored)
 ├── reports/                # Generated reports (git-ignored)
 └── exemple_rapport.txt     # Sample output
+![Sample report](docs/rapport.png)
+
 ```
 
 Each module has a single responsibility. Detection logic is separated from the
