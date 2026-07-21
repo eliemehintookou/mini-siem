@@ -57,8 +57,8 @@ ATT&CK knowledge base so new rules can be added without touching the engine.
 ## Installation
 
 ```bash
-git clone https://github.com/eliemehintookou/MINI-SIEM.git
-cd MINI-SIEM
+git clone https://github.com/eliemehintookou/mini-siem.git
+cd mini-siem
 ```
 
 No packages to install — Python 3.10 or later is the only requirement.
