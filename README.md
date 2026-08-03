@@ -122,6 +122,7 @@ Alerts are sorted by severity so the most critical incident always appears first
 |------|-------|------------------|----------|
 | Brute Force SSH | 5+ failed authentications from one IP within a 5-minute sliding window | [T1110.001](https://attack.mitre.org/techniques/T1110/001/) — Password Guessing | MEDIUM |
 | Successful login after brute force | Successful authentication from an IP already flagged by the rule above | [T1078](https://attack.mitre.org/techniques/T1078/) — Valid Accounts | CRITICAL |
+| Password Spraying | 5+ distinct accounts targeted by one IP, ≤2 attempts each | T1110.003 — Password Spraying | HIGH |
 
 Thresholds are defined as constants in `src/detection.py`:
 
@@ -152,7 +153,7 @@ This is a learning project with a deliberately narrow scope. Known limitations:
 
 ## Roadmap
 
-- [ ] Password spraying detection (T1110.003) — one password tried against many accounts
+- [x] Password spraying detection (T1110.003) — one password tried against many accounts
 - [ ] Configurable rules via a YAML file instead of hardcoded constants
 - [ ] Real-time monitoring mode (`tail -f` style)
 - [ ] IP allowlist to reduce false positives
