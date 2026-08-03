@@ -15,6 +15,15 @@ MITRE = {
         "severite": "CRITIQUE",
         "description": "Utilisation d'un compte legitime compromis pour acceder au systeme.",
     },
+
+"Password Spraying": {
+        "technique": "T1110.003",
+        "nom": "Brute Force: Password Spraying",
+        "tactique": "Credential Access (TA0006)",
+        "severite": "HAUTE",
+        "description": "Un meme mot de passe teste sur de nombreux comptes pour eviter les seuils de verrouillage.",
+    },
+
 }
 
 def enrichir(alerte):

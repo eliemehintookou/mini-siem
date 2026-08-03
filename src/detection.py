@@ -55,6 +55,30 @@ def detecter_succes_apres_echecs(evenements, alertes_bf):
             })
     return alertes
 
+
+def detecter_spraying(evenements, seuil_comptes=5, max_essais_par_compte=2):
+    alertes = []
+    essais_par_ip = defaultdict(lambda: defaultdict(int))
+
+    for e in evenements:
+        if not e["succes"]:
+            essais_par_ip[e["ip"]][e["utilisateur"]] += 1
+
+    for ip, comptes in essais_par_ip.items():
+        nb_comptes = len(comptes)
+        moyenne = sum(comptes.values()) / nb_comptes
+
+        if nb_comptes >= seuil_comptes and moyenne <= max_essais_par_compte:
+            alertes.append({
+                "type": "Password Spraying",
+                "ip": ip,
+                "nombre_comptes": nb_comptes,
+                "comptes": sorted(comptes),
+            })
+
+    return alertes
+
+
 if __name__ == "__main__":
     import sys
     sys.path.append("src")
@@ -64,6 +88,7 @@ if __name__ == "__main__":
     evenements = analyser_fichier("logs/auth.log")
     alertes = detecter_brute_force(evenements)
     alertes += detecter_succes_apres_echecs(evenements, alertes)
+    alertes += detecter_spraying(evenements)
     alertes = [enrichir(a) for a in alertes]
 
     print(f"{len(alertes)} alerte(s) detectee(s)")

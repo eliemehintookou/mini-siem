@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 
 IPS_NORMALES = ["192.168.1.10", "192.168.1.25", "192.168.1.42"]
 IP_ATTAQUANT = "203.0.113.66"
+IP_SPRAY = "198.51.100.23"
 UTILISATEURS = ["elie", "admin", "root", "test", "backup"]
 
 def ligne_log(date, ip, utilisateur, succes):
@@ -28,6 +29,14 @@ def generer_logs():
         utilisateur = random.choice(UTILISATEURS)
         lignes.append(ligne_log(date, IP_ATTAQUANT, utilisateur, False))
     lignes.append(ligne_log(debut + timedelta(seconds=70), IP_ATTAQUANT, "admin", True))
+
+# Password spraying : 1 essai sur beaucoup de comptes, lentement
+    comptes = ["admin", "root", "elie", "backup", "test", "info", "sql", "web"]
+    debut_spray = maintenant - timedelta(minutes=20)
+    for i, compte in enumerate(comptes):
+        date = debut_spray + timedelta(minutes=i * 2)
+        lignes.append(ligne_log(date, IP_SPRAY, compte, False))
+
     return lignes
 
 if __name__ == "__main__":
